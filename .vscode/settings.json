@@ -1,0 +1,8 @@
+{
+    "cmake.configureOnOpen": true,
+    "files.associations": {
+        "*.html": "html",
+        "usb_microphone.h": "c",
+        "pdm_microphone.h": "c"
+    }
+}

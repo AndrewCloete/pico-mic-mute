@@ -20,7 +20,8 @@
 
 #define PTT_PIN 14
 #define LATCH_PIN 15
-#define LED_PIN PICO_DEFAULT_LED_PIN
+#define LED_PIN_1 1
+#define LED_PIN_2 2
 
 // configuration
 const struct analog_microphone_config config = {
@@ -48,17 +49,44 @@ bool pin_ack = false;
 void on_analog_samples_ready();
 void on_usb_microphone_tx_ready();
 
+void red(void)
+{
+  gpio_put(LED_PIN_1, 1);
+  gpio_put(LED_PIN_2, 0);
+}
+
+void green(void)
+{
+  gpio_put(LED_PIN_1, 0);
+  gpio_put(LED_PIN_2, 1);
+}
+
+void indicate(bool state)
+{
+  if (state)
+  {
+    red();
+  }
+  else
+  {
+    green();
+  }
+}
+
 int main(void)
 {
   stdio_init_all();
   gpio_init(LATCH_PIN);
   gpio_set_dir(LATCH_PIN, GPIO_IN);
   gpio_pull_up(LATCH_PIN);
-  gpio_init(LED_PIN);
-  gpio_set_dir(LED_PIN, GPIO_OUT);
+  gpio_init(LED_PIN_1);
+  gpio_set_dir(LED_PIN_1, GPIO_OUT);
+  gpio_init(LED_PIN_2);
+  gpio_set_dir(LED_PIN_2, GPIO_OUT);
+  indicate(latch_state);
 
-  // initialize and start the Analog microphone
-  analog_microphone_init(&config);
+      // initialize and start the Analog microphone
+      analog_microphone_init(&config);
   analog_microphone_set_samples_ready_handler(on_analog_samples_ready);
   analog_microphone_start();
 
@@ -81,14 +109,7 @@ int main(void)
       if (!gpio_get(LATCH_PIN))
       {
         latch_state = !latch_state;
-        if (latch_state)
-        {
-          gpio_put(LED_PIN, 1);
-        }
-        else
-        {
-          gpio_put(LED_PIN, 0);
-        }
+        indicate(latch_state);
         pin_ack = true;
       }
     }

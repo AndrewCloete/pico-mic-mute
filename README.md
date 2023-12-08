@@ -1,3 +1,25 @@
+# Universal mute button 
+Problem: Finding the mute/unmute button during online calls
+Proposed solution: Raspberry Pi Pico as USB microphone interface with digital mute
+
+Pro's:
+- A physical button with a physical light indicator is much more human than their virtual counterparts. And talking is a human thing.
+- Independent of OS or chat application
+- Digital mute won't cause scratching artifact sounds that analog switches do.
+- Cheap
+
+Con's:
+- Requires a physical microphone with a 3.5mm interface.
+
+## Prototype
+![Alt text](img/prototype/explode.JPG)
+![Alt text](img/prototype/green.JPG)
+![Alt text](img/prototype/red.JPG)
+
+
+--------------------------------------------------------------------------------
+# Original README
+
 # Microphone Library for Pico
 
 Capture audio from a microphone on your [Raspberry Pi Pico](https://www.raspberrypi.org/products/raspberry-pi-pico/) or any [RP2040](https://www.raspberrypi.org/products/rp2040/) based board. 🎤

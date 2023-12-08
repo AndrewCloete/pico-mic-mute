@@ -18,6 +18,7 @@
 #include "pico/analog_microphone.h"
 #include "usb_microphone.h"
 
+#define ANALOG_PIN 28
 #define PTT_PIN 14
 #define LATCH_PIN 15
 #define LED_PIN_1 1
@@ -26,7 +27,7 @@
 // configuration
 const struct analog_microphone_config config = {
     // GPIO to use for input, must be ADC compatible (GPIO 26 - 28)
-    .gpio = 26,
+    .gpio = ANALOG_PIN,
 
     // bias voltage of microphone in volts
     .bias_voltage = 1.25,
@@ -51,14 +52,14 @@ void on_usb_microphone_tx_ready();
 
 void red(void)
 {
-  gpio_put(LED_PIN_1, 1);
-  gpio_put(LED_PIN_2, 0);
+  gpio_put(LED_PIN_1, 0);
+  gpio_put(LED_PIN_2, 1);
 }
 
 void green(void)
 {
-  gpio_put(LED_PIN_1, 0);
-  gpio_put(LED_PIN_2, 1);
+  gpio_put(LED_PIN_1, 1);
+  gpio_put(LED_PIN_2, 0);
 }
 
 void indicate(bool state)
